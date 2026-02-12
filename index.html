@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio 2568</title>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Kanit', sans-serif;
+}
+
+body{
+    background:linear-gradient(180deg,#ed520f,#ff8550);
+    color:white;
+}
+
+/* ===== Header Section ===== */
+.hero{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.badge{
+    display:inline-block;
+    background:white;
+    color:#ed520f;
+    padding:6px 18px;
+    border-radius:20px;
+    font-size:14px;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+/* Profile Image */
+.profile-img{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    margin:20px 0;
+    border:6px solid white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    transition:0.3s;
+}
+
+.profile-img:hover{
+    transform:scale(1.05);
+}
+
+.hero h1{
+    font-size:22px;
+    letter-spacing:2px;
+    margin-bottom:10px;
+    color:#fff3ec;
+}
+
+.hero h2{
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.hero p{
+    font-size:16px;
+    opacity:0.95;
+}
+
+/* ===== Card Section ===== */
+.section{
+    background:white;
+    color:#333;
+    margin:30px 15px;
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+    font-size:20px;
+    font-weight:600;
+    color:#ed520f;
+}
+
+.info-box{
+    background:#fff4ee;
+    padding:15px;
+    border-radius:15px;
+    margin-bottom:15px;
+}
+
+.label{
+    font-size:14px;
+    color:#777;
+}
+
+.value{
+    font-size:16px;
+    font-weight:500;
+    color:#333;
+}
+
+/* ===== Education Timeline ===== */
+.timeline{
+    border-left:4px solid #ed520f;
+    padding-left:15px;
+}
+
+.timeline-item{
+    margin-bottom:20px;
+}
+
+.timeline-item h4{
+    color:#ed520f;
+    font-weight:600;
+}
+
+@media(min-width:768px){
+    .section{
+        width:600px;
+        margin:30px auto;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="badge">📚 นักเรียน ม.6</div>
+
+    <img src="profile.jpg" alt="Profile" class="profile-img">
+
+    <h1>PORTFOLIO 2568</h1>
+    <h2>นายพัชรวัฒน์ กันตุง</h2>
+    <p>เป้าหมาย: คณะวิทยาศาสตร์การแพทย์ สาขาจุลชีววิทยา</p>
+    <p style="margin-top:8px;">มหาวิทยาลัยนเรศวร</p>
+</div>
+
+<div class="section">
+    <div class="section-title">👤 เกี่ยวกับฉัน</div>
+
+    <div class="info-box">
+        <div class="label">วันเกิด</div>
+        <div class="value">02 มีนาคม 2551 (อายุ 18 ปี)</div>
+    </div>
+
+    <div class="info-box">
+        <div class="label">สัญชาติ</div>
+        <div class="value">ไทย</div>
+    </div>
+
+    <div class="info-box">
+        <div class="label">อีเมล</div>
+        <div class="value">58181@lomsak.com</div>
+    </div>
+
+    <div class="info-box">
+        <div class="label">โทรศัพท์</div>
+        <div class="value">08-2553-000</div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section-title">🎓 ประวัติการศึกษา</div>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <h4>ระดับมัธยมศึกษาตอนปลาย</h4>
+            <p>โรงเรียนหล่มสักวิทยาคม</p>
+        </div>
+
+        <div class="timeline-item">
+            <h4>ระดับมัธยมศึกษาตอนต้น</h4>
+            <p>โรงเรียนหล่มสัก</p>
+        </div>
+    </div>
+</div>
+
+</body>
+  </html>
