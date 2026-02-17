@@ -1,112 +1,92 @@
-<!DOCTYPE html>
+https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Finance Tracker</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance X</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:#0F172A;
+  color:#E2E8F0;
 }
-
-body {
-    font-family: 'Inter', sans-serif;
-    background: #0F172A;
-    color: #E2E8F0;
+.container{
+  max-width:480px;
+  margin:auto;
+  padding:20px 20px 100px;
 }
-
-.container {
-    max-width: 480px;
-    margin: auto;
-    padding: 20px;
+.card{
+  background:#1E293B;
+  padding:16px;
+  border-radius:16px;
+  margin-bottom:16px;
 }
-
-.card {
-    background: #1E293B;
-    padding: 18px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+h2{margin-bottom:10px}
+.balance{font-size:28px;font-weight:700;color:#22C55E}
+.progress{
+  height:10px;
+  background:#334155;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:8px;
 }
-
-h1 {
-    font-size: 22px;
-    margin-bottom: 10px;
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,#3B82F6,#22C55E);
 }
-
-.balance {
-    font-size: 32px;
-    font-weight: 700;
-    color: #22C55E;
+input,select{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  border:none;
+  border-radius:10px;
+  background:#334155;
+  color:white;
 }
-
-.progress-bar {
-    height: 12px;
-    background: #334155;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-top: 10px;
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:12px;
+  background:#3B82F6;
+  color:white;
+  font-weight:600;
+  cursor:pointer;
 }
-
-.progress-fill {
-    height: 100%;
-    width: 40%;
-    background: linear-gradient(90deg, #3B82F6, #22C55E);
+nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  max-width:480px;
+  background:#1E293B;
+  display:flex;
+  justify-content:space-around;
+  padding:12px 0;
 }
-
-button {
-    width: 100%;
-    padding: 14px;
-    background: #3B82F6;
-    border: none;
-    border-radius: 12px;
-    color: white;
-    font-weight: 600;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: 0.3s;
+nav button{
+  background:none;
+  color:#94A3B8;
 }
-
-button:hover {
-    background: #2563EB;
+nav button.active{color:#3B82F6}
+.hidden{display:none}
+.badge{
+  background:#22C55E;
+  padding:4px 10px;
+  border-radius:20px;
+  font-size:12px;
+  display:inline-block;
+  margin-top:6px;
 }
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #334155;
-    color: white;
-    margin-top: 8px;
-}
-
-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 480px;
-    background: #1E293B;
-    display: flex;
-    justify-content: space-around;
-    padding: 12px 0;
-}
-
-nav button {
-    background: none;
-    color: #94A3B8;
-    font-size: 14px;
-}
-
-nav button.active {
-    color: #3B82F6;
+.watch-item{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
 }
 </style>
 </head>
@@ -114,64 +94,214 @@ nav button.active {
 
 <div class="container">
 
-    <div class="card">
-        <h1>ยอดเงินรวม</h1>
-        <div class="balance">฿ 7,500</div>
-        <p style="color:#94A3B8;">+1,200 วันนี้</p>
-    </div>
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="card">
+    <h2>ยอดเงินรวม</h2>
+    <div class="balance" id="balance">฿0</div>
+    <p id="streakText"></p>
+  </div>
 
-    <div class="card">
-        <h1>🎯 เป้าหมาย MacBook</h1>
-        <p>3,000 / 10,000 บาท</p>
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
+  <div class="card">
+    <h2>งบวันนี้</h2>
+    <p id="budgetInfo"></p>
+    <div class="progress">
+      <div class="fill" id="budgetFill"></div>
     </div>
+  </div>
 
-    <div class="card">
-        <h1>แนวโน้มรายจ่าย</h1>
-        <canvas id="myChart"></canvas>
-    </div>
+  <div class="card">
+    <h2>แนวโน้ม</h2>
+    <canvas id="chart"></canvas>
+  </div>
+
+  <div class="card">
+    <h2>Achievements</h2>
+    <div id="achievements"></div>
+  </div>
+</div>
+
+<!-- GOALS -->
+<div id="goals" class="hidden">
+  <div class="card">
+    <h2>กระปุกเงิน</h2>
+    <div id="jars"></div>
+  </div>
+
+  <div class="card">
+    <h2>เพิ่มกระปุก</h2>
+    <input id="jarName" placeholder="ชื่อกระปุก">
+    <input id="jarTarget" type="number" placeholder="เป้าหมาย">
+    <button onclick="addJar()">เพิ่ม</button>
+  </div>
+</div>
+
+<!-- ADD -->
+<div id="add" class="hidden">
+  <div class="card">
+    <h2>เพิ่มรายการ</h2>
+    <select id="type">
+      <option value="income">รายรับ</option>
+      <option value="expense">รายจ่าย</option>
+    </select>
+    <input id="amount" type="number" placeholder="จำนวนเงิน">
+    <button onclick="addTransaction()">บันทึก</button>
+  </div>
+</div>
+
+<!-- STOCKS -->
+<div id="stocks" class="hidden">
+  <div class="card">
+    <h2>ตลาดหุ้น</h2>
+    <div id="tradingview_widget"></div>
+  </div>
+
+  <div class="card">
+    <h2>Watchlist</h2>
+    <input id="stockInput" placeholder="เช่น AAPL, SCB">
+    <button onclick="addStock()">เพิ่มหุ้น</button>
+    <div id="watchlist"></div>
+  </div>
+</div>
 
 </div>
 
 <nav>
-    <button class="active">Dashboard</button>
-    <button>Goals</button>
-    <button>Add</button>
+  <button onclick="show('dashboard')" class="active">Home</button>
+  <button onclick="show('goals')">Goals</button>
+  <button onclick="show('add')">Add</button>
+  <button onclick="show('stocks')">Stocks</button>
 </nav>
 
 <script>
-const ctx = document.getElementById('myChart');
+// STATE
+let data = JSON.parse(localStorage.getItem("finance")) || {
+  balance:0,
+  transactions:[],
+  jars:[],
+  streak:0,
+  lastDate:null,
+  budget:200,
+  watchlist:[]
+};
 
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
-        datasets: [{
-            label: 'Expense',
-            data: [300, 450, 200, 600, 400, 700, 500],
-            borderColor: '#3B82F6',
-            backgroundColor: 'rgba(59,130,246,0.2)',
-            tension: 0.4,
-            fill: true
-        }]
-    },
-    options: {
-        plugins: {
-            legend: { display: false }
-        },
-        scales: {
-            x: {
-                ticks: { color: '#94A3B8' }
-            },
-            y: {
-                ticks: { color: '#94A3B8' }
-            }
-        }
-    }
+function save(){
+  localStorage.setItem("finance",JSON.stringify(data));
+}
+
+function show(id){
+  document.querySelectorAll(".container > div").forEach(d=>d.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+}
+
+// TRANSACTION
+function addTransaction(){
+  let amount = Number(document.getElementById("amount").value);
+  let type = document.getElementById("type").value;
+
+  if(type==="income") data.balance += amount;
+  else data.balance -= amount;
+
+  data.transactions.push({amount,type,date:new Date().toDateString()});
+
+  updateStreak();
+  checkAchievement();
+  save();
+  render();
+}
+
+// STREAK
+function updateStreak(){
+  let today = new Date().toDateString();
+  if(data.lastDate !== today){
+    data.streak++;
+    data.lastDate = today;
+  }
+}
+
+// ACHIEVEMENT
+function checkAchievement(){
+  if(data.balance>=1000){
+    document.getElementById("achievements").innerHTML =
+      "<div class='badge'>💚 First 1,000</div>";
+  }
+}
+
+// JAR
+function addJar(){
+  let name = jarName.value;
+  let target = Number(jarTarget.value);
+  data.jars.push({name,target,saved:0});
+  save();
+  render();
+}
+
+// STOCK
+function addStock(){
+  let symbol = stockInput.value;
+  data.watchlist.push(symbol);
+  save();
+  render();
+}
+
+// RENDER
+function render(){
+  balance.innerText="฿"+data.balance;
+  streakText.innerText="🔥 "+data.streak+" Day Streak";
+
+  budgetInfo.innerText="งบ: "+data.budget+" บาท";
+  budgetFill.style.width=Math.min(100,(data.balance/data.budget)*100)+"%";
+
+  jars.innerHTML="";
+  data.jars.forEach(j=>{
+    jars.innerHTML+=`
+      <div style="margin-top:10px">
+        ${j.name}
+        <div class="progress">
+          <div class="fill" style="width:${(j.saved/j.target)*100}%"></div>
+        </div>
+      </div>`;
+  });
+
+  watchlist.innerHTML="";
+  data.watchlist.forEach(s=>{
+    watchlist.innerHTML+=`<div class="watch-item">${s}</div>`;
+  });
+}
+
+render();
+
+// CHART
+new Chart(document.getElementById("chart"),{
+  type:'line',
+  data:{
+    labels:["Mon","Tue","Wed","Thu","Fri"],
+    datasets:[{
+      data:[100,200,150,300,250],
+      borderColor:"#3B82F6",
+      tension:0.4
+    }]
+  }
 });
+
+// TRADINGVIEW
+var script=document.createElement("script");
+script.src="https://s3.tradingview.com/tv.js";
+script.onload=function(){
+new TradingView.widget({
+  width:"100%",
+  height:300,
+  symbol:"SET:SET",
+  interval:"D",
+  timezone:"Asia/Bangkok",
+  theme:"dark",
+  style:"1",
+  container_id:"tradingview_widget"
+});
+};
+document.body.appendChild(script);
+
 </script>
 
 </body>
-</html>
+    </html>
